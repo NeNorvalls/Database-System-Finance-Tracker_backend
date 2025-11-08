@@ -1,10 +1,10 @@
 # Database-System-Finance-Tracker_backend
 
 ## Tables:
--- user – people who own accounts
--- account – bank accounts or wallets per user
--- category – expense/income categories
--- transaction – money movements (deposits, expenses, transfers)
+- user – people who own accounts
+- account – bank accounts or wallets per user
+- category – expense/income categories
+- transaction – money movements (deposits, expenses, transfers)
 
 # 💰 Finance Database Design Documentation
 
@@ -152,14 +152,6 @@ This database maintains:
 - **Encoding:** UTF8MB4 (for full Unicode support, including emojis 💸)  
 - **Environment:** Dockerized MySQL accessible on port 3307  
 - **Python Connection:** via `mysql.connector` and `.env` configuration  
-
-### Example `.env`:
-```env
-DB_HOST=127.0.0.1
-DB_PORT=3307
-DB_USER=nenorvalls
-DB_PASSWORD=Goldencow2029*
-DB_NAME=finance_db
 
 ✅ Summary
 
