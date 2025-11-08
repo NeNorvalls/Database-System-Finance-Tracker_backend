@@ -1,8 +1,8 @@
 -- Drop and recreate database
-DROP DATABASE finance_db
+DROP DATABASE IF EXISTS finance_db;
 CREATE DATABASE finance_db
-    CHARACTER SET uft8mb4
-    COLLATE utf8mb4_unicode_ci;
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
 
 USE finance_db;
 
@@ -27,7 +27,7 @@ CREATE TABLE account (
 CREATE TABLE category (
     category_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    type ENUM('income', 'expenses') NOT NULL
+    type ENUM('income', 'expense') NOT NULL
 );
 
 -- Table: transaction
