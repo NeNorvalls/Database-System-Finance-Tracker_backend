@@ -2,18 +2,21 @@ import os
 from mysql.connector import connect, Error
 from dotenv import load_dotenv  # pip install python-dotenv
 
-# Load .env file (DB_HOST, DB_PORT, DB_USER, etc.)
+# Load environment variables from .env file
 load_dotenv()
 
 
 def connect_db():
+    """
+    Establishes a connection to the MySQL database using environment variables.
+    Sensitive credentials (username/password) are NOT stored directly in this file.
+    """
     try:
         connection = connect(
             host=os.getenv("DB_HOST", "127.0.0.1"),
-            # change 3306 to 3307 here OR in .env if you're using mysql-finance on port 3307
-            port=int(os.getenv("DB_PORT", 3306)),
-            user=os.getenv("DB_USER", "nenorvalls"),
-            password=os.getenv("DB_PASSWORD", "Goldencow2029*"),
+            port=int(os.getenv("DB_PORT", 3306)),  # can be 3307 if using a separate Docker container
+            user=os.getenv("DB_USER"),             # pulled from .env
+            password=os.getenv("DB_PASSWORD"),     # pulled from .env
             database=os.getenv("DB_NAME", "finance_db"),
         )
         return connection
@@ -23,7 +26,7 @@ def connect_db():
 
 
 def test_connection():
-    """Simple health check: confirms Python <-> MySQL connection."""
+    """Checks that Python can connect to the database and prints DB + version info."""
     conn = connect_db()
     if not conn:
         print("❌ Python could NOT connect to MySQL.")
@@ -39,8 +42,8 @@ def test_connection():
     conn.close()
 
 
-# Show all transactions
 def show_transactions():
+    """Displays all transactions in the database."""
     conn = connect_db()
     if not conn:
         return
@@ -66,8 +69,8 @@ def show_transactions():
     conn.close()
 
 
-# Add transaction
 def add_transaction(account_id, category_id, amount, date, description):
+    """Adds a new transaction to the database."""
     conn = connect_db()
     if not conn:
         return
@@ -79,7 +82,7 @@ def add_transaction(account_id, category_id, amount, date, description):
             VALUES (%s, %s, %s, %s, %s)
         """, (account_id, category_id, amount, date, description))
         conn.commit()
-        print("Transaction added.")
+        print("✅ Transaction added.")
     except Error as e:
         print("Error adding transaction:", e)
         conn.rollback()
@@ -88,8 +91,8 @@ def add_transaction(account_id, category_id, amount, date, description):
         conn.close()
 
 
-# Show account summary per user
 def show_user_summary(user_id):
+    """Displays account summary and balance for a given user."""
     conn = connect_db()
     if not conn:
         return
@@ -109,6 +112,6 @@ def show_user_summary(user_id):
 
 
 if __name__ == "__main__":
-    # first check connection, then show transactions
+    # Optional test on startup
     test_connection()
     show_transactions()
