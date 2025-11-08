@@ -153,14 +153,6 @@ This database maintains:
 - **Environment:** Dockerized MySQL accessible on port 3307  
 - **Python Connection:** via `mysql.connector` and `.env` configuration  
 
-### Example `.env`:
-```env
-DB_HOST=127.0.0.1
-DB_PORT=3307
-DB_USER=nenorvalls
-DB_PASSWORD=Goldencow2029*
-DB_NAME=finance_db
-
 ✅ Summary
 
 The finance_db system demonstrates a well-structured relational model for managing financial transactions.
